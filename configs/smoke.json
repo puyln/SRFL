@@ -1,0 +1,11 @@
+{
+  "model": {
+    "backbone": "tiny", "image_size": 32, "num_classes": 3,
+    "adapter_dim": 8, "decoder_channels": 32, "decoder_depth": 1, "query_grid": 4,
+    "sam_normalization": false
+  },
+  "data": {"manifest": "../data/demo/manifest.json", "expected_clients": 2},
+  "training": {"rounds": 2, "batch_size": 2, "learning_rate": 0.001},
+  "usgr": {"random_sample_count": 16, "max_features": 32, "transport_iterations": 20},
+  "aggregation": {"global_step": 0.01, "iterations": 100}
+}

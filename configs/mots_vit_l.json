@@ -1,0 +1,12 @@
+{
+  "model": {
+    "backbone": "vit_l",
+    "num_classes": 12,
+    "sam_checkpoint": "../checkpoints/sam_vit_l_0b3195.pth",
+    "usgr_feature": "decoder"
+  },
+  "data": {
+    "manifest": "../data/mots/manifest.json",
+    "expected_clients": 7
+  }
+}

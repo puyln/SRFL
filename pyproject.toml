@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "srfl-medical"
+version = "1.0.0"
+description = "SRFL: SAM adapters, dual-scale decoder, USGR and GUA for federated medical segmentation"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["numpy>=2.0", "torch>=2.1", "scipy>=1.10", "nibabel>=5.1"]
+
+[project.optional-dependencies]
+sam = ["segment-anything==1.0", "torchvision>=0.16"]
+test = ["pytest>=7.4"]
+
+[project.scripts]
+srfl-train = "srfl.cli:train_main"
+srfl-evaluate = "srfl.cli:evaluate_main"
+srfl-predict = "srfl.cli:predict_main"
+
+[tool.setuptools.packages.find]
+include = ["srfl*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

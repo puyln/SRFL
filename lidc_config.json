@@ -1,0 +1,114 @@
+{
+  "seed": 20260924,
+  "model": {
+    "backbone": "vit_b",
+    "image_size": 1024,
+    "num_classes": 6,
+    "sam_checkpoint": "checkpoints/sam_vit_b_01ec64.pth",
+    "adapters": true,
+    "adapter_dim": 64,
+    "encoder_channels": 32,
+    "encoder_depth": 2,
+    "decoder_channels": 128,
+    "decoder_heads": 4,
+    "decoder_depth": 2,
+    "query_grid": 16,
+    "sam_normalization": true,
+    "usgr_feature": "decoder",
+    "fusion": "multiply",
+    "attention_backend": "sdpa_global"
+  },
+  "data": {
+    "manifest": "data/lidc/manifest.json",
+    "slice_axis": 2,
+    "cache_volumes": 1,
+    "expected_clients": 7,
+    "slice_views": true
+  },
+  "preprocessing": {
+    "ct_window": [
+      -500.0,
+      1000.0
+    ],
+    "mri_percentiles": [
+      0.5,
+      99.5
+    ]
+  },
+  "augmentation": {
+    "enabled": true,
+    "rotation_degrees": 15.0,
+    "scale_range": [
+      0.9,
+      1.1
+    ],
+    "intensity_jitter": 0.1
+  },
+  "training": {
+    "rounds": 200,
+    "local_epochs": 1,
+    "batch_size": 4,
+    "learning_rate": 0.01,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "lambda_usgr": 0.05,
+    "loss_mode": "regions",
+    "ce_weight": 1.0,
+    "dice_weight": 1.0,
+    "validate_every": 10,
+    "threads": 4,
+    "max_batches_per_client": 64,
+    "casewise_sampling": true,
+    "log_every": 64,
+    "amp": true,
+    "fused_adam": false,
+    "client_seeded": true
+  },
+  "usgr": {
+    "random_sample_count": 128,
+    "tau_alpha": 1000.0,
+    "tau_beta": 1000.0,
+    "transport_iterations": 100,
+    "transport_learning_rate": null,
+    "max_features": 128
+  },
+  "aggregation": {
+    "method": "gua",
+    "iterations": 500,
+    "tolerance": 1e-08,
+    "eps": 1e-12,
+    "global_step": 0.1,
+    "normalize_direction": true,
+    "safeguard": false,
+    "safety_fraction": 0.9
+  },
+  "benchmark": {
+    "optimizer": "SGD",
+    "momentum": 0,
+    "prox_mu": 0.01,
+    "client_weighting": "uniform, all seven clients participate",
+    "seeds": [
+      20261015,
+      20261016,
+      20261017
+    ],
+    "primary_target_dice": 0.5,
+    "secondary_targets": [
+      0.6,
+      0.7
+    ],
+    "metric": "Mean of six per-label GT-positive case Dice; absent classes excluded",
+    "initial_validation": "round zero, excluded from time to target",
+    "timing": "elapsed training+aggregation+validation+intermediate checkpoint IO, concurrent one-method-per-GPU",
+    "comparison": "Matched SGD benchmark",
+    "sampling": "case-shuffle then slice-shuffle; 64 batches per client per round, not full local epochs",
+    "validation": "All retained LIDC validation cases at round0 and every10 rounds; existing train/val split preserved after two mask-negative exclusions.",
+    "baseline_usgr": false,
+    "srfl_usgr": true,
+    "learning_rate_selection": "Fixed learning rate",
+    "dataset": "LIDC_PV, six raw lesion IDs, independent MRI experiment",
+    "client_policy": "Seven simulated patient-disjoint clients; Dirichlet alpha=0.5; minimum 10 patients"
+  }
+}
