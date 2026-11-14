@@ -1,6 +1,6 @@
 # References and attribution
 
-SRFL combines SAM adaptation with feature regularization and federated parameter aggregation. FedU² FUR/EUA provides the mathematical precedents for USGR/GUA; FedFMS provides a methodological precedent for federated SAM adaptation.
+SRFL combines SAM adaptation with USGR feature regularization and GUA parameter aggregation. The references below cover segmentation foundation models and federated learning.
 
 - Kirillov et al. *Segment Anything*. ICCV, 2023.
 - Liao et al. *Rethinking the Representation in Federated Unsupervised Learning with Non-IID Data*. FedU², 2024.

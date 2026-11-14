@@ -1,6 +1,6 @@
 # SRFL
 
-Code project for **SRFL: Stable and Robust Federated Learning for Segment Anything Model with Non-IID Medical Images**.
+**Stable and Robust Federated Learning for Segment Anything Model with Non-IID Medical Images**
 
 SRFL is a federated medical image segmentation framework that adapts the Segment Anything Model (SAM) to heterogeneous client data. The implementation brings together three components:
 
@@ -196,15 +196,15 @@ python -m pytest -q
 
 The included [GitHub Actions workflow](.github/workflows/tests.yml) is configured to run the tests and CPU training, evaluation, and prediction example on pushes and pull requests. It also supports manual dispatch.
 
-## 10. 📚 Documentation and Attribution
+## 10. 📚 Documentation and References
 
 | Document | Contents |
 | --- | --- |
 | [Data Setup and Evaluation](docs/DATA.md) | Input formats, manifests, preprocessing, supervision, and metrics |
 | [Implementation Details](docs/METHOD_MAPPING.md) | Component mapping, implementation choices, and benchmark scope |
-| [References and Attribution](docs/REFERENCES.md) | SAM, FedU², and FedFMS references |
+| [References and Attribution](docs/REFERENCES.md) | Related work and dependency attribution |
 
-SRFL uses the installed SAM image encoder. FedU² FUR/EUA provides mathematical precedents for USGR/GUA, and FedFMS provides a methodological precedent for federated SAM adaptation. See the references document for attribution details.
+SRFL integrates the installed SAM image encoder. Related publications and dependency attribution are listed in [References and Attribution](docs/REFERENCES.md).
 
 ## 11. 📄 License
 
